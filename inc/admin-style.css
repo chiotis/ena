@@ -1,0 +1,21 @@
+.wp-core-ui .button-primary,
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu, #adminmenu li.current a.menu-top, .folded #adminmenu li.wp-has-current-submenu, .folded #adminmenu li.current.menu-top, #adminmenu .wp-menu-arrow, #adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head, #adminmenu .wp-menu-arrow div {
+	background: #309CF3;
+}
+
+.acf-flexible-content .layout {
+    border: 2px solid #309CF3 !important;
+    border-radius: 4px;
+}
+.acf-flexible-content .layout.-collapsed {
+    border: 1px solid #ddd !important;
+}
+.acf-flexible-content .layout .acf-fc-layout-handle {
+	background: #309CF3;
+	color: #fff !important;
+	font-weight: bold;
+}
+.acf-flexible-content .layout.-collapsed .acf-fc-layout-handle {
+	background: #fff;
+	color: #000 !important;
+}
