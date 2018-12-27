@@ -1,9 +1,9 @@
 <?php
 // ENA only works in WordPress 4.7 or later.
-if ( version_compare( $GLOBALS['wp_version'], '5.0', '<' ) ) {
-	require get_template_directory() . '/inc/back-compat.php';
-	return;
-}
+// if ( version_compare( $GLOBALS['wp_version'], '5.0', '<' ) ) {
+// 	require get_template_directory() . '/inc/back-compat.php';
+// 	return;
+// }
 
 if ( ! function_exists( 'ena_setup' ) ) :
 	/**
@@ -23,7 +23,7 @@ if ( ! function_exists( 'ena_setup' ) ) :
 		load_theme_textdomain( 'ena', get_template_directory() . '/languages' );
 
 		// Add default posts and comments RSS feed links to head.
-		add_theme_support( 'automatic-feed-links' );
+		// add_theme_support( 'automatic-feed-links' );
 
 		/*
 		 * Let WordPress manage the document title.
@@ -80,111 +80,11 @@ if ( ! function_exists( 'ena_setup' ) ) :
 			)
 		);
 
-		// Add theme support for selective refresh for widgets.
-		add_theme_support( 'customize-selective-refresh-widgets' );
-
-		// Add support for Block Styles.
-		add_theme_support( 'wp-block-styles' );
-
-		// Add support for full and wide align images.
-		add_theme_support( 'align-wide' );
-
-		// Add support for editor styles.
-		add_theme_support( 'editor-styles' );
-
-		// Enqueue editor styles.
-		add_editor_style( 'style-editor.css' );
-
-		// Add custom editor font sizes.
-		add_theme_support(
-			'editor-font-sizes',
-			array(
-				array(
-					'name'      => __( 'Small', 'ena' ),
-					'shortName' => __( 'S', 'ena' ),
-					'size'      => 19.5,
-					'slug'      => 'small',
-				),
-				array(
-					'name'      => __( 'Normal', 'ena' ),
-					'shortName' => __( 'M', 'ena' ),
-					'size'      => 22,
-					'slug'      => 'normal',
-				),
-				array(
-					'name'      => __( 'Large', 'ena' ),
-					'shortName' => __( 'L', 'ena' ),
-					'size'      => 36.5,
-					'slug'      => 'large',
-				),
-				array(
-					'name'      => __( 'Huge', 'ena' ),
-					'shortName' => __( 'XL', 'ena' ),
-					'size'      => 49.5,
-					'slug'      => 'huge',
-				),
-			)
-		);
-
-		// Editor color palette.
-		add_theme_support(
-			'editor-color-palette',
-			array(
-				array(
-					'name'  => __( 'Primary', 'ena' ),
-					'slug'  => 'primary',
-					'color' => ena_hsl_hex( 'default' === get_theme_mod( 'primary_color' ) ? 199 : get_theme_mod( 'primary_color_hue', 199 ), 100, 33 ),
-				),
-				array(
-					'name'  => __( 'Secondary', 'ena' ),
-					'slug'  => 'secondary',
-					'color' => ena_hsl_hex( 'default' === get_theme_mod( 'primary_color' ) ? 199 : get_theme_mod( 'primary_color_hue', 199 ), 100, 23 ),
-				),
-				array(
-					'name'  => __( 'Dark Gray', 'ena' ),
-					'slug'  => 'dark-gray',
-					'color' => '#111',
-				),
-				array(
-					'name'  => __( 'Light Gray', 'ena' ),
-					'slug'  => 'light-gray',
-					'color' => '#767676',
-				),
-				array(
-					'name'  => __( 'White', 'ena' ),
-					'slug'  => 'white',
-					'color' => '#FFF',
-				),
-			)
-		);
-
 		// Add support for responsive embedded content.
 		add_theme_support( 'responsive-embeds' );
 	}
 endif;
 add_action( 'after_setup_theme', 'ena_setup' );
-
-/**
- * Register widget area.
- *
- * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
- */
-function ena_widgets_init() {
-
-	register_sidebar(
-		array(
-			'name'          => __( 'Footer', 'ena' ),
-			'id'            => 'sidebar-1',
-			'description'   => __( 'Add widgets here to appear in your footer.', 'ena' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
-		)
-	);
-
-}
-add_action( 'widgets_init', 'ena_widgets_init' );
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -205,18 +105,10 @@ add_action( 'after_setup_theme', 'ena_content_width', 0 );
  * Enqueue scripts and styles.
  */
 function ena_scripts() {
-	wp_enqueue_style( 'ena-style', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ) );
+	wp_enqueue_style( 'ena-style', get_stylesheet_uri(), array(), wp_get_theme()->get( 'Version' ), 'all' );
 
-	wp_style_add_data( 'ena-style', 'rtl', 'replace' );
-
-	wp_enqueue_script( 'ena-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
-
-	if ( has_nav_menu( 'menu-1' ) ) {
-		wp_enqueue_script( 'ena-priority-menu', get_theme_file_uri( '/js/priority-menu.js' ), array(), '1.0', true );
-		wp_enqueue_script( 'ena-touch-navigation', get_theme_file_uri( '/js/touch-keyboard-navigation.js' ), array(), '1.0', true );
-	}
-
-	wp_enqueue_style( 'ena-print-style', get_template_directory_uri() . '/print.css', array(), wp_get_theme()->get( 'Version' ), 'print' );
+	wp_enqueue_script( 'ena-uikitjs', 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit.min.js', array(), '20151215', true );
+	wp_enqueue_script( 'ena-uikiticonsjs', 'https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.25/js/uikit-icons.min.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -224,73 +116,69 @@ function ena_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'ena_scripts' );
 
-/**
- * Enqueue supplemental block editor styles.
- */
-function ena_editor_customizer_styles() {
-
-	wp_enqueue_style( 'ena-editor-customizer-styles', get_theme_file_uri( '/style-editor-customizer.css' ), false, '1.0', 'all' );
-
-	if ( 'custom' === get_theme_mod( 'primary_color' ) ) {
-		// Include color patterns.
-		require_once get_parent_theme_file_path( '/inc/color-patterns.php' );
-		wp_add_inline_style( 'ena-editor-customizer-styles', ena_custom_colors_css() );
-	}
+function ena_enqueue_custom_admin_style() {
+	wp_enqueue_style( 'custom_wp_admin_css', get_template_directory_uri() . '/inc/admin-style.css', array(), wp_get_theme()->get( 'Version' ), 'all' );
 }
-add_action( 'enqueue_block_editor_assets', 'ena_editor_customizer_styles' );
-
-/**
- * Display custom color CSS in customizer and on frontend.
- */
-function ena_colors_css_wrap() {
-
-	// Only include custom colors in customizer or frontend.
-	if ( ( ! is_customize_preview() && 'default' === get_theme_mod( 'primary_color', 'default' ) ) || is_admin() ) {
-		return;
-	}
-
-	require_once get_parent_theme_file_path( '/inc/color-patterns.php' );
-
-	if ( 'default' === get_theme_mod( 'primary_color', 'default' ) ) {
-		$primary_color = 199;
-	} else {
-		$primary_color = absint( get_theme_mod( 'primary_color_hue', 199 ) );
-	}
-	?>
-
-	<style type="text/css" id="custom-theme-colors" <?php echo is_customize_preview() ? 'data-hue="' . $primary_color . '"' : ''; ?>>
-		<?php echo ena_custom_colors_css(); ?>
-	</style>
-	<?php
-}
-add_action( 'wp_head', 'ena_colors_css_wrap' );
-
-/**
- * SVG Icons class.
- */
-require get_template_directory() . '/classes/class-ena-svg-icons.php';
-
+add_action( 'admin_enqueue_scripts', 'ena_enqueue_custom_admin_style' );
 /**
  * Custom Comment Walker template.
  */
-require get_template_directory() . '/classes/class-ena-walker-comment.php';
+// require get_template_directory() . '/classes/class-ena-walker-comment.php';
 
 /**
  * Enhance the theme by hooking into WordPress.
  */
-require get_template_directory() . '/inc/template-functions.php';
+// require get_template_directory() . '/inc/template-functions.php';
 
 /**
  * SVG Icons related functions.
  */
-require get_template_directory() . '/inc/icon-functions.php';
+// require get_template_directory() . '/inc/icon-functions.php';
 
 /**
  * Custom template tags for the theme.
  */
-require get_template_directory() . '/inc/template-tags.php';
+// require get_template_directory() . '/inc/template-tags.php';
 
 /**
  * Customizer additions.
  */
-require get_template_directory() . '/inc/customizer.php';
+// require get_template_directory() . '/inc/customizer.php';
+
+/**
+ * Theme Options Page
+ */
+require get_template_directory() . '/inc/options-page.php';
+
+/**
+ * Remove Emojis
+ */
+require get_template_directory() . '/inc/remove-emojis.php';
+
+/**
+ * Remove Emojis
+ */
+require get_template_directory() . '/inc/body-class.php';
+
+/**
+ * Disable Pings
+ */
+require get_template_directory() . '/inc/disable-ping.php';
+
+/**
+ * Clean up Head
+ */
+require get_template_directory() . '/inc/cleanup-head.php';
+
+// Register Custom Navigation Walker
+require_once get_template_directory() . '/classes/ena-navwalker.php';
+
+// Register custom neu items in primary menu
+require_once get_template_directory() . '/inc/custom-menu-items.php';
+
+// Action Hooks
+require_once get_template_directory() . '/inc/action-hooks.php';
+
+// Gravity Forms Compatibility functions
+require_once get_template_directory() . '/inc/gf-compatibility.php';
+
