@@ -24,7 +24,7 @@
             </div>
             <!-- <div class="uk-overlay-primary uk-position-cover"></div> -->
             <?php if ( get_sub_field('title') || get_sub_field('content') ) { ?>
-            <div class="uk-position-medium <?php the_sub_field('content_text_alignment'); ?> <?php the_sub_field('content_box_position'); ?> uk-overlay uk-overlay-primary">
+            <div class="uk-position-large <?php the_sub_field('content_text_alignment'); ?> <?php the_sub_field('content_box_position'); ?> uk-overlay uk-overlay-primary ">
                 <?php if ( get_sub_field('title') ) { ?>
                 <h3 class="uk-margin-remove"><?php the_sub_field('title'); ?></h3>
                 <?php } ?>
