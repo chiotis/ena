@@ -1,4 +1,4 @@
-<div class="<?php the_sub_field('style'); ?>" uk-alert>
+<div class="<?php the_sub_field('style'); ?> uk-margin-remove" uk-alert>
 	<?php if ( get_sub_field('is_dismissable') ) { ?>
     <a class="uk-alert-close" uk-close></a>
 	<?php } ?>
