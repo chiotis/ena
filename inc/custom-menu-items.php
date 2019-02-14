@@ -6,6 +6,7 @@
 		$items .= '<li><a href="" uk-icon="icon: facebook" class="uk-padding-remove-left"></a></li>';
 		$items .= '<li><a href="" uk-icon="icon: twitter" class="uk-padding-remove-left"></a></li>';
 		$items .= '<li><a href="" uk-icon="icon: instagram" class="uk-padding-remove-left"></a></li>';
+		$items .= '<li><a href="" uk-icon="icon: github" class="uk-padding-remove-left"></a></li>';
 		if ( ( get_field('offcanvas', 'options') == 'true' ) && ( $args->theme_location == 'primary' ) ) {
 		    $items .= '<a class="uk-navbar-toggle" uk-navbar-toggle-icon href="#offcanvas" uk-toggle></a>';
 		}
